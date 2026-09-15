@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheGoldClothes</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+/* NAVBAR */
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60px;
+  border-bottom: 1px solid #eee;
+  background: white;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 2px;
+}
+
+.gold { color: #C6A55C; }
+
+.nav-links span {
+  margin: 0 15px;
+  cursor: pointer;
+}
+
+/* HERO */
+.hero {
+  height: 60vh;
+  background: url("banner.jpg") center/cover no-repeat;
+}
+
+/* PRODUCTO */
+.container {
+  padding: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  cursor: pointer;
+  text-align: center;
+}
+
+.card img {
+  width: 250px;
+  transition: 0.3s;
+}
+
+.card img:hover {
+  transform: scale(1.05);
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  width: 900px;
+  display: flex;
+  padding: 40px;
+  gap: 40px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* GALERÍA */
+.gallery img {
+  width: 70px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.main-img {
+  width: 350px;
+  height: 400px;
+  object-fit: contain;
+}
+
+/* INFO */
+.info { max-width: 350px; }
+
+.price { color: #C6A55C; }
+
+/* BOTONES */
+button {
+  background: #C6A55C;
+  color: white;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  margin-top: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: black;
+}
+
+/* CARRITO */
+.cart {
+  position: fixed;
+  right: -400px;
+  top: 0;
+  width: 350px;
+  height: 100%;
+  background: #111;
+  color: white;
+  padding: 20px;
+  transition: 0.4s;
+  z-index: 999;
+}
+
+.cart.active {
+  right: 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+/* CHECKOUT */
+.checkout {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:none;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+}
+
+.checkout-box {
+  background:white;
+  padding:30px;
+  width:300px;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 768px){
+
+  nav {
+    padding: 15px 20px;
+  }
+
+  .nav-links span {
+    margin: 0 8px;
+    font-size: 14px;
+  }
+
+  .hero {
+    height: 30vh;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  .card img {
+    width: 180px;
+  }
+
+  .modal-content {
+    flex-direction: column;
+    width: 90%;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .main-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .gallery {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .gallery img {
+    width: 60px;
+  }
+
+  .info {
+    max-width: 100%;
+  }
+
+  .cart {
+    width: 100%;
+  }
+
+  .checkout-box {
+    width: 90%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">THE<span class="gold">GOLD</span>CLOTHES</div>
+  <div class="nav-links">
+    <span>Inicio</span>
+    <span>Tienda</span>
+    <span onclick="toggleCart()">Carrito 🛒</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero"></div>
+
+<!-- PRODUCTO -->
+<div class="container">
+  <div class="card" onclick="openModal()">
+    <img src="img1.jpg">
+    <h3>Polerón Nike Tech Fleece Gris</h3>
+    <p class="price">$80.000</p>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+
+    <div class="gallery">
+      <img src="img1.jpg" onclick="changeImg('img1.jpg')">
+      <img src="img2.jpg" onclick="changeImg('img2.jpg')">
+      <img src="img3.jpg" onclick="changeImg('img3.jpg')">
+    </div>
+
+    <img id="mainImg" class="main-img" src="img1.jpg">
+
+    <div class="info">
+      <h2 id="productTitle">Polerón Nike Tech Fleece Gris</h2>
+      <p class="price">$80.000</p>
+      <p>Talla S | Tech Fleece premium</p>
+
+      <button onclick="addToCart()">Agregar al carrito</button>
+      <button onclick="closeModal()" style="background:black;">Cerrar</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- CARRITO -->
+<div class="cart" id="cart">
+  <div style="display:flex; justify-content:space-between;">
+    <h2>Tu carrito</h2>
+    <span onclick="toggleCart()" style="cursor:pointer;">✖</span>
+  </div>
+
+  <div id="cartItems"></div>
+  <button onclick="openCheckout()">Finalizar compra</button>
+</div>
+
+<!-- CHECKOUT -->
+<div class="checkout" id="checkout">
+  <div class="checkout-box">
+    <h3>Finalizar compra</h3>
+    <input type="email" id="email" placeholder="Tu correo">
+    <button onclick="finish()">Comprar por WhatsApp</button>
+    <button onclick="cancel()" style="background:black;">Cancelar</button>
+  </div>
+</div>
+
+<script>
+let cart = {};
+let cartTimeout;
+
+function openModal(){
+  document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+function changeImg(src){
+  document.getElementById("mainImg").src = src;
+}
+
+function addToCart(){
+  let productName = document.getElementById("productTitle").innerText;
+
+  if(cart[productName]){
+    cart[productName]++;
+  } else {
+    cart[productName] = 1;
+  }
+
+  renderCart();
+  closeModal();
+  openCartAutoClose();
+}
+
+function renderCart(){
+  let container = document.getElementById("cartItems");
+  container.innerHTML="";
+
+  for(let item in cart){
+    let div = document.createElement("div");
+    div.className="cart-item";
+
+    div.innerHTML = `
+      ${item} (x${cart[item]})
+      <button onclick="removeItem('${item}')">❌</button>
+    `;
+
+    container.appendChild(div);
+  }
+}
+
+function removeItem(item){
+  delete cart[item];
+  renderCart();
+}
+
+function toggleCart(){
+  document.getElementById("cart").classList.toggle("active");
+}
+
+function openCartAutoClose(){
+  let cartEl = document.getElementById("cart");
+  cartEl.classList.add("active");
+
+  clearTimeout(cartTimeout);
+  cartTimeout = setTimeout(()=>{
+    cartEl.classList.remove("active");
+  }, 4000);
+}
+
+function openCheckout(){
+  document.getElementById("checkout").style.display="flex";
+}
+
+function cancel(){
+  document.getElementById("checkout").style.display="none";
+}
+
+function finish(){
+  let email = document.getElementById("email").value;
+  if(!email){
+    alert("Ingresa correo");
+    return;
+  }
+
+  let mensaje = "🛍️ *Nueva compra - TheGoldClothes*%0A%0A";
+
+  for(let item in cart){
+    mensaje += "- " + item + " x" + cart[item] + "%0A";
+  }
+
+  mensaje += "%0ACorreo: " + email;
+
+  let numero = "56978858164"; // 👈 CAMBIA ESTO
+
+  let url = "https://wa.me/" + numero + "?text=" + mensaje;
+
+  window.open(url, "_blank");
+
+  cart = {};
+  renderCart();
+  document.getElementById("checkout").style.display="none";
+}
+</script>
+
+</body>
+</html>
