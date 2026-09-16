@@ -333,6 +333,12 @@ Correo: ${correo}`;
     let numero="56978858164"; 
 
     window.open("https://wa.me/"+numero+"?text="+encodeURIComponent(mensaje));
+
+    // 🔥 RESET DEL CARRITO DESPUÉS DE COMPRAR
+    cantidad = 0;
+    document.getElementById("correo").value = "";
+    actualizar();
+    cerrarTodo();
 }
 </script>
 
