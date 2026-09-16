@@ -8,11 +8,11 @@
 <style>
 body{
     margin:0;
-    font-family: Arial, sans-serif;
+    font-family:Arial;
     background:#f5f5f5;
 }
 
-/* NAVBAR */
+/* NAV */
 nav{
     position:fixed;
     top:0;
@@ -20,95 +20,52 @@ nav{
     background:white;
     text-align:center;
     padding:15px;
-    font-weight:bold;
-    letter-spacing:2px;
     z-index:1000;
 }
 
 /* BANNER */
-.banner{
-    margin-top:60px;
-}
 .banner img{
     width:100%;
-    height:300px;
+    height:250px;
     object-fit:cover;
+    margin-top:60px;
 }
 
 /* PRODUCTO */
 .producto{
     text-align:center;
-    padding:40px 20px;
+    padding:30px;
+    cursor:pointer;
 }
 .producto img{
-    width:280px;
+    width:250px;
 }
+
+/* BOTON */
 .btn{
     background:gold;
     border:none;
     padding:15px;
-    width:80%;
+    width:100%;
     margin-top:10px;
-    cursor:pointer;
     font-weight:bold;
 }
 
 /* BOTON CARRITO */
 .cart-btn{
     position:fixed;
-    right:20px;
     bottom:20px;
+    right:20px;
     background:black;
     color:white;
-    border-radius:50%;
     width:60px;
     height:60px;
+    border-radius:50%;
     display:flex;
-    align-items:center;
     justify-content:center;
-    font-size:22px;
+    align-items:center;
     cursor:pointer;
     z-index:2000;
-}
-
-/* CARRITO */
-.cart{
-    position:fixed;
-    top:0;
-    right:-100%;
-    width:350px;
-    height:100%;
-    background:white;
-    box-shadow:-5px 0 20px rgba(0,0,0,0.2);
-    padding:20px;
-    transition:0.4s;
-    z-index:3000;
-}
-.cart.active{
-    right:0;
-}
-
-.cart h2{
-    margin-top:0;
-}
-
-.close{
-    position:absolute;
-    right:15px;
-    top:10px;
-    cursor:pointer;
-    font-size:22px;
-}
-
-/* BOTONES CARRITO */
-.cart button{
-    width:100%;
-    margin-top:10px;
-    padding:12px;
-    border:none;
-    background:gold;
-    font-weight:bold;
-    cursor:pointer;
 }
 
 /* OVERLAY */
@@ -118,18 +75,70 @@ nav{
     left:0;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.4);
+    background:rgba(0,0,0,0.5);
     display:none;
-    z-index:2500;
+    z-index:1500;
 }
 .overlay.active{
     display:block;
 }
 
+/* MODAL PRODUCTO */
+.modal{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    width:90%;
+    max-width:500px;
+    max-height:90%;
+    overflow:auto;
+    padding:20px;
+    display:none;
+    z-index:2000;
+}
+.modal.active{
+    display:block;
+}
+
+.modal img{
+    width:100%;
+}
+
+/* GALERIA */
+.galeria{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+.galeria img{
+    width:60px;
+    cursor:pointer;
+}
+
+/* CARRITO */
+.cart{
+    position:fixed;
+    right:-100%;
+    top:0;
+    width:100%;
+    max-width:350px;
+    height:100%;
+    background:white;
+    padding:20px;
+    transition:0.3s;
+    z-index:2000;
+}
+.cart.active{
+    right:0;
+}
+
 /* RESPONSIVE */
 @media(max-width:600px){
-    .cart{
-        width:100%;
+    .modal{
+        width:95%;
+        max-height:85%;
     }
 }
 </style>
@@ -143,61 +152,65 @@ nav{
     <img src="banner.jpg">
 </div>
 
-<div class="producto">
+<!-- PRODUCTO -->
+<div class="producto" onclick="abrirProducto()">
     <img src="img1.jpg">
-    <h2 id="nombre">Polerón Nike Tech Fleece Gris</h2>
+    <h2>Polerón Nike Tech Fleece Gris</h2>
     <p>$80.000</p>
-    <button class="btn" onclick="agregar()">Agregar al carrito</button>
 </div>
 
-<!-- BOTON FLOTANTE -->
+<!-- BOTON CARRITO -->
 <div class="cart-btn" onclick="abrirCarrito()">🛒</div>
 
 <!-- OVERLAY -->
-<div class="overlay" id="overlay" onclick="cerrarCarrito()"></div>
+<div class="overlay" id="overlay" onclick="cerrarTodo()"></div>
+
+<!-- MODAL PRODUCTO -->
+<div class="modal" id="modal">
+    <h2>Polerón Nike Tech Fleece Gris</h2>
+
+    <img id="imgPrincipal" src="img1.jpg">
+
+    <div class="galeria">
+        <img src="img1.jpg" onclick="cambiarImg(this)">
+        <img src="img2.jpg" onclick="cambiarImg(this)">
+        <img src="img3.jpg" onclick="cambiarImg(this)">
+    </div>
+
+    <p><b>Marca / Modelo:</b> Nike Sportswear Tech Fleece Full-Zip Hoodie.</p>
+
+    <p><b>Color:</b> Gris claro jaspeado con detalles negros.</p>
+
+    <p><b>Diseño:</b> Cierre completo, capucha estructurada, logo Nike.</p>
+
+    <p><b>Bolsillos:</b> Laterales con cierre sellado.</p>
+
+    <p><b>Material:</b> 53% algodón / 47% poliéster.</p>
+
+    <p><b>Tecnología:</b> Tech Fleece térmico liviano.</p>
+
+    <button class="btn" onclick="agregar()">Agregar al carrito</button>
+</div>
 
 <!-- CARRITO -->
 <div class="cart" id="cart">
-    <span class="close" onclick="cerrarCarrito()">✖</span>
     <h2>Tu carrito</h2>
-
-    <p id="productoCarrito"></p>
-    <p id="cantidad"></p>
-    <p id="total"></p>
-
-    <button onclick="quitar()">Quitar producto</button>
+    <p id="info"></p>
+    <button onclick="quitar()">Quitar</button>
     <button onclick="comprar()">Finalizar compra</button>
 </div>
 
 <script>
-let cantidad = 0;
-const precio = 80000;
+let cantidad=0;
+const precio=80000;
 
-function agregar(){
-    cantidad++;
-    actualizar();
-    abrirCarrito();
+function abrirProducto(){
+    document.getElementById("modal").classList.add("active");
+    document.getElementById("overlay").classList.add("active");
 }
 
-function quitar(){
-    if(cantidad > 0){
-        cantidad--;
-        actualizar();
-    }
-}
-
-function actualizar(){
-    if(cantidad === 0){
-        document.getElementById("productoCarrito").innerText = "Carrito vacío";
-        document.getElementById("cantidad").innerText = "";
-        document.getElementById("total").innerText = "";
-    } else {
-        document.getElementById("productoCarrito").innerText =
-        document.getElementById("nombre").innerText;
-
-        document.getElementById("cantidad").innerText = "Cantidad: " + cantidad;
-        document.getElementById("total").innerText = "Total: $" + (precio * cantidad);
-    }
+function cambiarImg(el){
+    document.getElementById("imgPrincipal").src = el.src;
 }
 
 function abrirCarrito(){
@@ -205,26 +218,48 @@ function abrirCarrito(){
     document.getElementById("overlay").classList.add("active");
 }
 
-function cerrarCarrito(){
+function cerrarTodo(){
+    document.getElementById("modal").classList.remove("active");
     document.getElementById("cart").classList.remove("active");
     document.getElementById("overlay").classList.remove("active");
 }
 
+function agregar(){
+    cantidad++;
+    actualizar();
+    cerrarTodo();
+}
+
+function quitar(){
+    if(cantidad>0){
+        cantidad--;
+        actualizar();
+    }
+}
+
+function actualizar(){
+    if(cantidad==0){
+        document.getElementById("info").innerText="Carrito vacío";
+    }else{
+        document.getElementById("info").innerText=
+        "Polerón Nike Tech Fleece Gris\nCantidad: "+cantidad+
+        "\nTotal: $"+(precio*cantidad);
+    }
+}
+
 function comprar(){
-    if(cantidad === 0){
-        alert("El carrito está vacío");
+    if(cantidad==0){
+        alert("Carrito vacío");
         return;
     }
 
-    let mensaje = `Hola, quiero comprar:
-${document.getElementById("nombre").innerText}
+    let mensaje=`Hola quiero comprar:
+Polerón Nike Tech Fleece Gris
 Cantidad: ${cantidad}
-Total: $${precio * cantidad}`;
+Total: $${precio*cantidad}`;
 
-    let numero = "56978858164"; // CAMBIA ESTO
-    let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensaje);
-
-    window.open(url, "_blank");
+    let numero="56978858164";
+    window.open("https://wa.me/"+numero+"?text="+encodeURIComponent(mensaje));
 }
 </script>
 
