@@ -22,6 +22,7 @@ nav{
     padding:15px;
     z-index:1000;
     font-weight:bold;
+    letter-spacing:2px;
 }
 
 /* BANNER */
@@ -44,13 +45,15 @@ nav{
 
 /* BOTON */
 .btn{
-    background:gold;
+    background:linear-gradient(45deg,gold,#d4af37);
     border:none;
     padding:15px;
     width:100%;
     margin-top:10px;
     font-weight:bold;
     cursor:pointer;
+    border-radius:6px;
+    color:black;
 }
 
 /* BOTON CARRITO */
@@ -67,8 +70,24 @@ nav{
     justify-content:center;
     align-items:center;
     cursor:pointer;
-    z-index:2000;
+    z-index:3000;
     font-size:22px;
+}
+
+/* CONTADOR ROJO */
+.cart-count{
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    background:red;
+    color:white;
+    font-size:12px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 /* OVERLAY */
@@ -95,7 +114,7 @@ nav{
     background:white;
     width:90%;
     max-width:500px;
-    max-height:90%;
+    max-height:90vh;
     overflow:auto;
     padding:20px;
     display:none;
@@ -133,11 +152,18 @@ nav{
     background:white;
     padding:20px;
     transition:0.3s;
-    z-index:2000;
+    z-index:2500;
     box-shadow:-5px 0 20px rgba(0,0,0,0.2);
+    display:flex;
+    flex-direction:column;
 }
 .cart.active{
     right:0;
+}
+
+.cart-content{
+    flex:1;
+    overflow:auto;
 }
 
 /* INPUT */
@@ -149,11 +175,20 @@ input{
     border-radius:5px;
 }
 
+/* BOTON CERRAR */
+.close{
+    position:absolute;
+    right:15px;
+    top:10px;
+    font-size:22px;
+    cursor:pointer;
+}
+
 /* RESPONSIVE */
 @media(max-width:600px){
     .modal{
         width:95%;
-        max-height:85%;
+        max-height:85vh;
     }
 }
 </style>
@@ -175,13 +210,18 @@ input{
 </div>
 
 <!-- BOTON CARRITO -->
-<div class="cart-btn" onclick="abrirCarrito()">🛒</div>
+<div class="cart-btn" onclick="abrirCarrito()">
+    🛒
+    <div class="cart-count" id="contador">0</div>
+</div>
 
 <!-- OVERLAY -->
 <div class="overlay" id="overlay" onclick="cerrarTodo()"></div>
 
 <!-- MODAL PRODUCTO -->
 <div class="modal" id="modal">
+    <span class="close" onclick="cerrarTodo()">✖</span>
+
     <h2>Polerón Nike Tech Fleece Gris</h2>
 
     <img id="imgPrincipal" src="img1.jpg">
@@ -194,6 +234,7 @@ input{
 
     <p><b>Marca / Modelo:</b> Nike Sportswear Tech Fleece Full-Zip Hoodie.</p>
     <p><b>Color:</b> Gris claro jaspeado con detalles negros.</p>
+    <p><b>Talla:</b> S</p> <!-- NUEVO -->
     <p><b>Diseño:</b> Cierre completo, capucha estructurada, logo Nike.</p>
     <p><b>Bolsillos:</b> Laterales con cierre sellado.</p>
     <p><b>Material:</b> 53% algodón / 47% poliéster.</p>
@@ -204,11 +245,14 @@ input{
 
 <!-- CARRITO -->
 <div class="cart" id="cart">
+    <span class="close" onclick="cerrarTodo()">✖</span>
+
     <h2>Tu carrito</h2>
 
-    <p id="info">Carrito vacío</p>
-
-    <input type="email" id="correo" placeholder="Ingresa tu correo">
+    <div class="cart-content">
+        <p id="info">Carrito vacío</p>
+        <input type="email" id="correo" placeholder="Ingresa tu correo">
+    </div>
 
     <button class="btn" onclick="quitar()">Quitar producto</button>
     <button class="btn" onclick="comprar()">Finalizar compra</button>
@@ -252,6 +296,8 @@ function quitar(){
 }
 
 function actualizar(){
+    document.getElementById("contador").innerText = cantidad; // 🔴 CONTADOR
+
     if(cantidad==0){
         document.getElementById("info").innerText="Carrito vacío";
     }else{
