@@ -255,7 +255,13 @@ input{
         <input type="text" id="direccion" placeholder="Dirección de envío">
 
 <input type="text" id="comuna" placeholder="Comuna">
+        
+<input type="text" id="region" placeholder="Región">
 
+<input type="text" id="telefono" placeholder="Teléfono">
+
+<input type="text" id="rut" placeholder="RUT (ej: 12.345.678-9)">
+        
 <select id="envio">
     <option value="retiro">Retiro gratis</option>
     <option value="starken">Envío por pagar (Starken)</option>
@@ -324,6 +330,9 @@ function comprar(){
     let correo = document.getElementById("correo").value;
     let direccion = document.getElementById("direccion").value;
     let comuna = document.getElementById("comuna").value;
+    let region = document.getElementById("region").value;
+    let telefono = document.getElementById("telefono").value;
+    let rut = document.getElementById("rut").value;
     let tipoEnvio = document.getElementById("envio").value;
 
     // ✅ VALIDACIONES BIEN HECHAS
@@ -332,7 +341,8 @@ function comprar(){
         return;
     }
 
-    if(tipoEnvio !== "retiro"){
+if(tipoEnvio !== "retiro"){
+
     if(direccion===""){
         alert("Ingresa tu dirección");
         return;
@@ -342,15 +352,29 @@ function comprar(){
         alert("Ingresa tu comuna");
         return;
     }
-}
 
+    if(region===""){
+        alert("Ingresa tu región");
+        return;
+    }
+
+    if(telefono===""){
+        alert("Ingresa tu teléfono");
+        return;
+    }
+
+    if(rut===""){
+        alert("Ingresa tu RUT");
+        return;
+    }
+}
     // 🚚 ENVÍO
     let envioTexto = tipoEnvio === "retiro" 
         ? "Retiro gratis" 
         : "Envío por pagar (Starken)";
 
     // 💬 MENSAJE
-    let mensaje=`🛒 Nueva compra - TheGoldClothes
+   let mensaje=`🛒 Nueva compra - TheGoldClothes
 
 Producto: Polerón Nike Tech Fleece Gris
 Talla: S
@@ -359,11 +383,14 @@ Cantidad: ${cantidad}
 Total: $${precio*cantidad}
 
 Correo: ${correo}
+Teléfono: ${telefono}
+RUT: ${rut}
+
 Dirección: ${direccion}
 Comuna: ${comuna}
+Región: ${region}
 
 Método de entrega: ${envioTexto}`;
-
     let numero="56978858164"; 
 
     window.open("https://wa.me/"+numero+"?text="+encodeURIComponent(mensaje));
