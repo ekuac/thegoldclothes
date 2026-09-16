@@ -252,6 +252,14 @@ input{
     <div class="cart-content">
         <p id="info">Carrito vacío</p>
         <input type="email" id="correo" placeholder="Ingresa tu correo">
+        <input type="text" id="direccion" placeholder="Dirección de envío">
+
+<input type="text" id="comuna" placeholder="Comuna">
+
+<select id="envio">
+    <option value="retiro">Retiro gratis</option>
+    <option value="starken">Envío por pagar (Starken)</option>
+</select>
     </div>
 
     <button class="btn" onclick="quitar()">Quitar producto</button>
@@ -313,13 +321,35 @@ function comprar(){
         return;
     }
 
-    let correo=document.getElementById("correo").value;
+    let correo = document.getElementById("correo").value;
+    let direccion = document.getElementById("direccion").value;
+    let comuna = document.getElementById("comuna").value;
+    let tipoEnvio = document.getElementById("envio").value;
 
+    // ✅ VALIDACIONES BIEN HECHAS
     if(correo===""){
         alert("Ingresa tu correo");
         return;
     }
 
+    if(tipoEnvio !== "retiro"){
+    if(direccion===""){
+        alert("Ingresa tu dirección");
+        return;
+    }
+
+    if(comuna===""){
+        alert("Ingresa tu comuna");
+        return;
+    }
+}
+
+    // 🚚 ENVÍO
+    let envioTexto = tipoEnvio === "retiro" 
+        ? "Retiro gratis" 
+        : "Envío por pagar (Starken)";
+
+    // 💬 MENSAJE
     let mensaje=`🛒 Nueva compra - TheGoldClothes
 
 Producto: Polerón Nike Tech Fleece Gris
@@ -328,15 +358,21 @@ Cantidad: ${cantidad}
 
 Total: $${precio*cantidad}
 
-Correo: ${correo}`;
+Correo: ${correo}
+Dirección: ${direccion}
+Comuna: ${comuna}
+
+Método de entrega: ${envioTexto}`;
 
     let numero="56978858164"; 
 
     window.open("https://wa.me/"+numero+"?text="+encodeURIComponent(mensaje));
 
-    // 🔥 RESET DEL CARRITO DESPUÉS DE COMPRAR
+    // 🔥 RESET
     cantidad = 0;
     document.getElementById("correo").value = "";
+    document.getElementById("direccion").value = "";
+    document.getElementById("comuna").value = "";
     actualizar();
     cerrarTodo();
 }
