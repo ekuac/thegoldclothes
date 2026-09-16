@@ -6,190 +6,86 @@
 <title>The Gold Clothes</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#f5f5f5;
-}
+body{margin:0;font-family:Arial;background:#f5f5f5;}
 
-/* NAV */
 nav{
-    position:fixed;
-    top:0;
-    width:100%;
-    background:white;
-    text-align:center;
-    padding:15px;
-    z-index:1000;
-    font-weight:bold;
-    letter-spacing:2px;
+position:fixed;top:0;width:100%;background:white;
+text-align:center;padding:15px;z-index:1000;
+font-weight:bold;letter-spacing:2px;
 }
 
-/* BANNER */
 .banner img{
-    width:100%;
-    height:250px;
-    object-fit:cover;
-    margin-top:60px;
+width:100%;height:250px;object-fit:cover;margin-top:60px;
 }
 
-/* PRODUCTO */
+.productos{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;padding:20px;
+}
+
 .producto{
-    text-align:center;
-    padding:30px;
-    cursor:pointer;
+background:white;padding:15px;border-radius:10px;
+text-align:center;cursor:pointer;transition:0.2s;
 }
-.producto img{
-    width:260px;
-}
+.producto:hover{transform:scale(1.03);}
+.producto img{width:100%;border-radius:8px;}
 
-/* BOTON */
 .btn{
-    background:linear-gradient(45deg,gold,#d4af37);
-    border:none;
-    padding:15px;
-    width:100%;
-    margin-top:10px;
-    font-weight:bold;
-    cursor:pointer;
-    border-radius:6px;
-    color:black;
+background:linear-gradient(45deg,gold,#d4af37);
+border:none;padding:15px;width:100%;
+margin-top:10px;font-weight:bold;cursor:pointer;
+border-radius:6px;
 }
 
-/* BOTON CARRITO */
 .cart-btn{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:black;
-    color:white;
-    width:60px;
-    height:60px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
-    z-index:3000;
-    font-size:22px;
+position:fixed;bottom:20px;right:20px;
+background:black;color:white;width:60px;height:60px;
+border-radius:50%;display:flex;justify-content:center;
+align-items:center;cursor:pointer;z-index:3000;
 }
 
-/* CONTADOR ROJO */
 .cart-count{
-    position:absolute;
-    top:-5px;
-    right:-5px;
-    background:red;
-    color:white;
-    font-size:12px;
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+position:absolute;top:-5px;right:-5px;background:red;
+color:white;width:20px;height:20px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+font-size:12px;
 }
 
-/* OVERLAY */
 .overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.5);
-    display:none;
-    z-index:1500;
+position:fixed;width:100%;height:100%;
+background:rgba(0,0,0,0.5);display:none;
 }
-.overlay.active{
-    display:block;
-}
+.overlay.active{display:block;}
 
-/* MODAL PRODUCTO */
 .modal{
-    position:fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    background:white;
-    width:90%;
-    max-width:500px;
-    max-height:90vh;
-    overflow:auto;
-    padding:20px;
-    display:none;
-    z-index:2000;
-    border-radius:10px;
+position:fixed;top:50%;left:50%;
+transform:translate(-50%,-50%);
+background:white;width:90%;max-width:500px;
+max-height:90vh;overflow:auto;padding:20px;
+border-radius:10px;display:none;z-index:2000;
 }
-.modal.active{
-    display:block;
-}
+.modal.active{display:block;}
 
-.modal img{
-    width:100%;
-}
+.modal img{width:100%;border-radius:10px;}
 
-/* GALERIA */
-.galeria{
-    display:flex;
-    gap:10px;
-    margin-top:10px;
-}
-.galeria img{
-    width:60px;
-    cursor:pointer;
-    border-radius:5px;
-}
+.galeria{display:flex;gap:10px;margin-top:10px;}
+.galeria img{width:60px;cursor:pointer;}
 
-/* CARRITO */
 .cart{
-    position:fixed;
-    right:-100%;
-    top:0;
-    width:100%;
-    max-width:350px;
-    height:100%;
-    background:white;
-    padding:20px;
-    transition:0.3s;
-    z-index:2500;
-    box-shadow:-5px 0 20px rgba(0,0,0,0.2);
-    display:flex;
-    flex-direction:column;
+position:fixed;right:-100%;top:0;width:100%;
+max-width:350px;height:100%;background:white;
+padding:20px;transition:0.3s;z-index:2500;
+display:flex;flex-direction:column;
 }
-.cart.active{
-    right:0;
-}
+.cart.active{right:0;}
 
-.cart-content{
-    flex:1;
-    overflow:auto;
-}
+.cart-content{flex:1;overflow:auto;}
 
-/* INPUT */
-input{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border:1px solid #ccc;
-    border-radius:5px;
-}
+input,select{width:100%;padding:10px;margin-top:8px;}
 
-/* BOTON CERRAR */
 .close{
-    position:absolute;
-    right:15px;
-    top:10px;
-    font-size:22px;
-    cursor:pointer;
-}
-
-/* RESPONSIVE */
-@media(max-width:600px){
-    .modal{
-        width:95%;
-        max-height:85vh;
-    }
+position:absolute;right:15px;top:10px;cursor:pointer;
 }
 </style>
 </head>
@@ -199,188 +95,332 @@ input{
 <nav>THE GOLD CLOTHES</nav>
 
 <div class="banner">
-    <img src="banner.jpg">
+<img src="banner.jpg">
 </div>
 
-<!-- PRODUCTO -->
-<div class="producto" onclick="abrirProducto()">
-    <img src="img1.jpg">
-    <h2>Polerón Nike Tech Fleece Gris</h2>
-    <p>$80.000</p>
+<div class="productos">
+
+<div class="producto" onclick="abrirProducto(0)">
+<img src="img1.jpg">
+<h3>Grey Heather</h3>
+<p>$80.000</p>
 </div>
 
-<!-- BOTON CARRITO -->
+<div class="producto" onclick="abrirProducto(1)">
+<img src="img4.jpg">
+<h3>Black</h3>
+<p>$80.000</p>
+</div>
+
+<div class="producto" onclick="abrirProducto(2)">
+<img src="img7.jpg">
+<h3>Dark Grey</h3>
+<p>$80.000</p>
+</div>
+
+<div class="producto" onclick="abrirProducto(3)">
+<img src="img10.jpg">
+<h3>Green</h3>
+<p>$80.000</p>
+</div>
+
+<div class="producto" onclick="abrirProducto(4)">
+<img src="img13.jpg">
+<h3>Stone Island</h3>
+<p>$50.000</p>
+</div>
+
+</div>
+
 <div class="cart-btn" onclick="abrirCarrito()">
-    🛒
-    <div class="cart-count" id="contador">0</div>
+🛒
+<div class="cart-count" id="contador">0</div>
 </div>
 
-<!-- OVERLAY -->
 <div class="overlay" id="overlay" onclick="cerrarTodo()"></div>
 
-<!-- MODAL PRODUCTO -->
+<!-- MODAL -->
 <div class="modal" id="modal">
-    <span class="close" onclick="cerrarTodo()">✖</span>
+<span class="close" onclick="cerrarTodo()">✖</span>
 
-    <h2>Polerón Nike Tech Fleece Gris</h2>
+<h2 id="titulo"></h2>
+<img id="imgPrincipal">
 
-    <img id="imgPrincipal" src="img1.jpg">
+<div class="galeria" id="galeria"></div>
+<div id="descripcion"></div>
 
-    <div class="galeria">
-        <img src="img1.jpg" onclick="cambiarImg(this)">
-        <img src="img2.jpg" onclick="cambiarImg(this)">
-        <img src="img3.jpg" onclick="cambiarImg(this)">
-    </div>
-
-    <p><b>Marca / Modelo:</b> Nike Sportswear Tech Fleece Full-Zip Hoodie.</p>
-    <p><b>Color:</b> Gris claro jaspeado con detalles negros.</p>
-    <p><b>Talla:</b> S</p> <!-- NUEVO -->
-    <p><b>Diseño:</b> Cierre completo, capucha estructurada, logo Nike.</p>
-    <p><b>Bolsillos:</b> Laterales con cierre sellado.</p>
-    <p><b>Material:</b> 53% algodón / 47% poliéster.</p>
-    <p><b>Tecnología:</b> Tech Fleece térmico liviano.</p>
-
-    <button class="btn" onclick="agregar()">Agregar al carrito</button>
+<button class="btn" onclick="agregar()">Agregar al carrito</button>
 </div>
 
 <!-- CARRITO -->
 <div class="cart" id="cart">
-    <span class="close" onclick="cerrarTodo()">✖</span>
+<span class="close" onclick="cerrarTodo()">✖</span>
 
-    <h2>Tu carrito</h2>
+<h2>Carrito</h2>
 
-    <div class="cart-content">
-        <p id="info">Carrito vacío</p>
-        <input type="email" id="correo" placeholder="Ingresa tu correo">
-        <input type="text" id="direccion" placeholder="Dirección de envío">
+<div class="cart-content">
+<p id="info">Carrito vacío</p>
 
-<input type="text" id="comuna" placeholder="Comuna">
-        
-<input type="text" id="region" placeholder="Región">
+<input id="correo" placeholder="Correo">
+<input id="direccion" placeholder="Dirección">
+<input id="comuna" placeholder="Comuna">
+<input id="region" placeholder="Región">
+<input id="telefono" placeholder="Teléfono">
+<input id="rut" placeholder="RUT">
 
-<input type="text" id="telefono" placeholder="Teléfono">
-
-<input type="text" id="rut" placeholder="RUT (ej: 12.345.678-9)">
-        
 <select id="envio">
-    <option value="retiro">Retiro gratis</option>
-    <option value="starken">Envío por pagar (Starken)</option>
+<option value="retiro">Retiro gratis</option>
+<option value="starken">Envío por pagar (Starken)</option>
 </select>
-    </div>
+</div>
 
-    <button class="btn" onclick="quitar()">Quitar producto</button>
-    <button class="btn" onclick="comprar()">Finalizar compra</button>
+<button class="btn" onclick="comprar()">Finalizar compra</button>
 </div>
 
 <script>
-let cantidad=0;
-const precio=80000;
 
-function abrirProducto(){
-    document.getElementById("modal").classList.add("active");
-    document.getElementById("overlay").classList.add("active");
+let carrito = [];
+let productoActual = 0;
+
+// 🔗 REFERENCIAS DOM (ESTO TE FALTABA)
+const titulo = document.getElementById("titulo");
+const imgPrincipal = document.getElementById("imgPrincipal");
+const descripcion = document.getElementById("descripcion");
+const galeria = document.getElementById("galeria");
+
+const modal = document.getElementById("modal");
+const overlay = document.getElementById("overlay");
+const cart = document.getElementById("cart");
+const contador = document.getElementById("contador");
+
+const productos=[
+
+// 1
+{
+nombre:"Polerón Nike Tech Fleece Grey Heather",
+precio:80000,
+imgs:["img1.jpg","img2.jpg","img3.jpg"],
+desc:`
+<p><b>Marca / Modelo:</b> Nike Sportswear Tech Fleece Full-Zip Hoodie.</p>
+<p><b>Color:</b> Gris claro jaspeado con detalles negros.</p>
+<p><b>Talla:</b> S</p>
+<p><b>Diseño:</b> Cierre completo, capucha estructurada, logo Nike.</p>
+<p><b>Bolsillos:</b> Laterales con cierre sellado.</p>
+<p><b>Material:</b> 53% algodón / 47% poliéster.</p>
+<p><b>Tecnología:</b> Tech Fleece térmico liviano.</p>
+`
+},
+
+// 2
+{
+nombre:"Polerón Nike Tech Fleece Black",
+precio:80000,
+imgs:["img4.jpg","img5.jpg","img6.jpg"],
+desc:`
+<p><b>Marca / Modelo:</b> Nike Sportswear Tech Fleece Full-Zip Hoodie (Black/Black).</p>
+<p><b>Color:</b> Negro monocromático.</p>
+<p><b>Talla:</b> S</p>
+<p><b>Diseño:</b> Capucha estructurada, estilo limpio.</p>
+<p><b>Bolsillos:</b> Con cierre sellado.</p>
+<p><b>Material:</b> 53% algodón / 47% poliéster.</p>
+<p><b>Tecnología:</b> Tech Fleece liviano.</p>
+`
+},
+
+// 3
+{
+nombre:"Nike Tech Fleece Gris/Negro",
+precio:80000,
+imgs:["img7.jpg","img8.jpg","img9.jpg"],
+desc:`
+<p><b>Marca / Modelo:</b> Nike Tech Fleece Hoodie.</p>
+<p><b>Color:</b> Gris jaspeado con negro.</p>
+<p><b>Talla:</b> S</p>
+<p><b>Diseño:</b> Chevron Nike.</p>
+<p><b>Bolsillos:</b> Con cierre.</p>
+<p><b>Material:</b> 53% algodón / 47% poliéster.</p>
+<p><b>Tecnología:</b> Retención térmica.</p>
+`
+},
+
+// 4
+{
+nombre:"Nike Tech Fleece Verde/Rojo",
+precio:80000,
+imgs:["img10.jpg","img11.jpg","img12.jpg"],
+desc:`
+<p><b>Marca / Modelo:</b> Nike Tech Fleece Hoodie.</p>
+<p><b>Color:</b> Verde con negro y logo rojo.</p>
+<p><b>Talla:</b> S</p>
+<p><b>Diseño:</b> Windrunner.</p>
+<p><b>Bolsillos:</b> Con cierre.</p>
+<p><b>Material:</b> 53% algodón / 47% poliéster.</p>
+<p><b>Tecnología:</b> Tech Fleece doble cara.</p>
+`
+},
+
+// 5
+{
+nombre:"Polerón Stone Island Grey",
+precio:50000,
+imgs:["img13.jpg","img14.jpg","img15.jpg"],
+desc:`
+<p><b>Marca / Modelo:</b> Stone Island Crewneck Sweatshirt.</p>
+<p><b>Color:</b> Gris melange.</p>
+<p><b>Talla:</b> S</p>
+<p><b>Diseño:</b> Parche Compass Badge removible.</p>
+<p><b>Bolsillos:</b> Sin bolsillos.</p>
+<p><b>Material:</b> 100% algodón.</p>
+<p><b>Tecnología:</b> Brushed Cotton Fleece.</p>
+`
+}
+
+];
+
+// FUNCIONES
+
+function abrirProducto(i){
+productoActual=i;
+let p=productos[i];
+
+titulo.innerText=p.nombre;
+imgPrincipal.src=p.imgs[0];
+descripcion.innerHTML=p.desc;
+
+galeria.innerHTML="";
+p.imgs.forEach(img=>{
+galeria.innerHTML+=`<img src="${img}" onclick="cambiarImg(this)">`;
+});
+
+modal.classList.add("active");
+overlay.classList.add("active");
 }
 
 function cambiarImg(el){
-    document.getElementById("imgPrincipal").src = el.src;
+imgPrincipal.src=el.src;
 }
 
 function abrirCarrito(){
-    document.getElementById("cart").classList.add("active");
-    document.getElementById("overlay").classList.add("active");
+cart.classList.add("active");
+overlay.classList.add("active");
 }
 
 function cerrarTodo(){
-    document.getElementById("modal").classList.remove("active");
-    document.getElementById("cart").classList.remove("active");
-    document.getElementById("overlay").classList.remove("active");
+modal.classList.remove("active");
+cart.classList.remove("active");
+overlay.classList.remove("active");
 }
 
 function agregar(){
-    cantidad++;
+    let existe = carrito.find(p => p.id === productoActual);
+
+    if(existe){
+        existe.cantidad++;
+    }else{
+        carrito.push({
+            id: productoActual,
+            cantidad: 1
+        });
+    }
+
     actualizar();
     cerrarTodo();
 }
 
-function quitar(){
-    if(cantidad>0){
-        cantidad--;
+function actualizar(){
+    let totalItems = carrito.reduce((acc,p)=>acc+p.cantidad,0);
+    document.getElementById("contador").innerText = totalItems;
+
+    let contenedor = document.getElementById("info");
+
+    if(carrito.length === 0){
+        contenedor.innerHTML = "Carrito vacío";
+        return;
+    }
+
+    let html = "";
+
+    carrito.forEach(item=>{
+        let p = productos[item.id];
+
+        html += `
+        <div style="margin-bottom:15px;border-bottom:1px solid #ccc;padding-bottom:10px;">
+            <b>${p.nombre}</b><br>
+            Cantidad: ${item.cantidad}<br>
+            Total: $${p.precio * item.cantidad}<br>
+
+            <button onclick="sumar(${item.id})">+</button>
+            <button onclick="restar(${item.id})">-</button>
+        </div>
+        `;
+    });
+
+    contenedor.innerHTML = html;
+}
+function sumar(id){
+    let item = carrito.find(p=>p.id===id);
+    if(item){
+        item.cantidad++;
         actualizar();
     }
 }
 
-function actualizar(){
-    document.getElementById("contador").innerText = cantidad; // 🔴 CONTADOR
+function restar(id){
+    let item = carrito.find(p=>p.id===id);
 
-    if(cantidad==0){
-        document.getElementById("info").innerText="Carrito vacío";
-    }else{
-        document.getElementById("info").innerText=
-        "Polerón Nike Tech Fleece Gris\nCantidad: "+cantidad+
-        "\nTotal: $"+(precio*cantidad);
+    if(item){
+        item.cantidad--;
+
+        if(item.cantidad <= 0){
+            carrito = carrito.filter(p=>p.id!==id);
+        }
+
+        actualizar();
     }
 }
+
 
 function comprar(){
-    if(cantidad==0){
-        alert("Carrito vacío");
-        return;
-    }
 
-    let correo = document.getElementById("correo").value;
-    let direccion = document.getElementById("direccion").value;
-    let comuna = document.getElementById("comuna").value;
-    let region = document.getElementById("region").value;
-    let telefono = document.getElementById("telefono").value;
-    let rut = document.getElementById("rut").value;
-    let tipoEnvio = document.getElementById("envio").value;
-
-    // ✅ VALIDACIONES BIEN HECHAS
-    if(correo===""){
-        alert("Ingresa tu correo");
-        return;
-    }
-
-if(tipoEnvio !== "retiro"){
-
-    if(direccion===""){
-        alert("Ingresa tu dirección");
-        return;
-    }
-
-    if(comuna===""){
-        alert("Ingresa tu comuna");
-        return;
-    }
-
-    if(region===""){
-        alert("Ingresa tu región");
-        return;
-    }
-
-    if(telefono===""){
-        alert("Ingresa tu teléfono");
-        return;
-    }
-
-    if(rut===""){
-        alert("Ingresa tu RUT");
-        return;
-    }
+if(carrito.length === 0){
+alert("Carrito vacío");
+return;
 }
-    // 🚚 ENVÍO
-    let envioTexto = tipoEnvio === "retiro" 
-        ? "Retiro gratis" 
-        : "Envío por pagar (Starken)";
 
-    // 💬 MENSAJE
-   let mensaje=`🛒 Nueva compra - TheGoldClothes
+let correo = document.getElementById("correo").value;
+let direccion = document.getElementById("direccion").value;
+let comuna = document.getElementById("comuna").value;
+let region = document.getElementById("region").value;
+let telefono = document.getElementById("telefono").value;
+let rut = document.getElementById("rut").value;
+let tipoEnvio = document.getElementById("envio").value;
 
-Producto: Polerón Nike Tech Fleece Gris
-Talla: S
-Cantidad: ${cantidad}
+if(correo===""){
+alert("Ingresa tu correo");
+return;
+}
 
-Total: $${precio*cantidad}
+if(tipoEnvio!=="retiro"){
+if(!direccion||!comuna||!region||!telefono||!rut){
+alert("Completa todos los datos de envío");
+return;
+}
+}
+
+let listaProductos = "";
+
+carrito.forEach(item=>{
+    let p = productos[item.id];
+    listaProductos += `${p.nombre} x${item.cantidad} - $${p.precio * item.cantidad}\n`;
+});
+
+let envioTexto = tipoEnvio === "retiro"
+    ? "Retiro gratis"
+    : "Envío por pagar (Starken)";
+
+let mensaje=`🛒 Nueva compra - TheGoldClothes
+
+${listaProductos}
 
 Correo: ${correo}
 Teléfono: ${telefono}
@@ -391,18 +431,25 @@ Comuna: ${comuna}
 Región: ${region}
 
 Método de entrega: ${envioTexto}`;
-    let numero="56978858164"; 
 
-    window.open("https://wa.me/"+numero+"?text="+encodeURIComponent(mensaje));
+let numero="56978858164";
 
-    // 🔥 RESET
-    cantidad = 0;
-    document.getElementById("correo").value = "";
-    document.getElementById("direccion").value = "";
-    document.getElementById("comuna").value = "";
-    actualizar();
-    cerrarTodo();
+// ✅ FIX REAL
+window.open("https://wa.me/"+numero+"?text="+encodeURIComponent(mensaje));
+
+carrito = [];
+actualizar();
+
+document.getElementById("correo").value = "";
+document.getElementById("direccion").value = "";
+document.getElementById("comuna").value = "";
+document.getElementById("region").value = "";
+document.getElementById("telefono").value = "";
+document.getElementById("rut").value = "";
+
+cerrarTodo();
 }
+
 </script>
 
 </body>
